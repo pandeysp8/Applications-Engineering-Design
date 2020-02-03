@@ -39,11 +39,12 @@ public class VitalSigns {
         
         System.out.println("Enter Date of Birth");
         age_d= Integer.parseInt(sc.nextLine());
+        //Period p= Period.between(pdate, today);
     LocalDate today= LocalDate.now();
     LocalDate pdate= LocalDate.of(age_y, age_m, age_d);
-    
     Period p= Period.between(pdate, today);
-   
+    age_y= p.getYears();
+    
     System.out.println("Years " +age_y + " Months " + age_m + " Days " + age_d);
     
     System.out.println("Enter respiration rate");
