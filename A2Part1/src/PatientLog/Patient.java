@@ -105,6 +105,7 @@ public class Patient {
             b=false;
             }
         
+        System.out.println(b);
         return b;
     }
 
