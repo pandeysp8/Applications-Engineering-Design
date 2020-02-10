@@ -9,7 +9,10 @@ import javax.swing.JOptionPane;
 import Business.ProductDirectory;
 import Business.Product;
 import java.awt.CardLayout;
+import static java.nio.file.Files.list;
+import static java.util.Collections.list;
 import javax.swing.JPanel;
+
 /**
  *
  * @author info
@@ -148,7 +151,7 @@ public class CreateProductJPanel extends javax.swing.JPanel {
         }
         catch(NumberFormatException e){
             e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "EEnteR valid price");
+            JOptionPane.showMessageDialog(null, "Enter valid price");
             return;
         }
         
@@ -162,7 +165,24 @@ public class CreateProductJPanel extends javax.swing.JPanel {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Enter valid availablity");
         }
-        
+        //String name;
+        //String name1="";
+        try{
+            
+            
+            if(prodDir.getProductDirectory().size()>=0){
+                for(Product p: prodDir.getProductDirectory()){
+                    if(p.getName().equals(txtProdName.getText())){
+                        JOptionPane.showMessageDialog(null, "Name already exists");
+                        return;
+                    }
+                }
+            }
+        }  
+        catch(NullPointerException e){
+            e.printStackTrace();
+            
+        }
             Double.parseDouble(priceText);
             Integer.parseInt(availabilityText);
             Product prod = prodDir.addProduct();

@@ -232,7 +232,7 @@ public class ManageProdPanel extends javax.swing.JPanel {
             //populate();
         }
         
-        ViewPanel viewpanel = new ViewPanel(panel,product);
+        ViewPanel viewpanel = new ViewPanel(panel,product,prodDir);
         this.panel.add("ViewPanel",viewpanel);
         CardLayout layout=(CardLayout) this.panel.getLayout();
         layout.next(panel);

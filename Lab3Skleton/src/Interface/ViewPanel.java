@@ -25,16 +25,7 @@ public class ViewPanel extends javax.swing.JPanel {
     private ProductDirectory prodDir;
     private Product product;
     private JPanel panel;
-    ViewPanel(Product prod, ProductDirectory accDir) {
-        initComponents();
-        this.product=prod;
-        txtAvailablity.setText(String.valueOf(prod.getAvailNum()));
-        txtPrice.setText(String.valueOf(prod.getPrice()));
-        txtProdName.setText(prod.getName());
-        txtDesc.setText(prod.getDescription());
-        this.prodDir = accDir;
-    }
-    ViewPanel(JPanel panel,  Product prod){
+    ViewPanel(JPanel panel,Product prod, ProductDirectory prodDir) {
         initComponents();
         this.product=prod;
         this.panel  = panel;
@@ -42,8 +33,18 @@ public class ViewPanel extends javax.swing.JPanel {
         txtPrice.setText(String.valueOf(prod.getPrice()));
         txtProdName.setText(prod.getName());
         txtDesc.setText(prod.getDescription());
-        //this.prodDir = accDir;
+        this.prodDir = prodDir;
     }
+//    ViewPanel(JPanel panel,  Product prod){
+//        initComponents();
+//        this.product=prod;
+//        this.panel  = panel;
+//        txtAvailablity.setText(String.valueOf(prod.getAvailNum()));
+//        txtPrice.setText(String.valueOf(prod.getPrice()));
+//        txtProdName.setText(prod.getName());
+//        txtDesc.setText(prod.getDescription());
+//        //this.prodDir = accDir;
+//    }
     
     
     /**
@@ -191,10 +192,57 @@ public class ViewPanel extends javax.swing.JPanel {
             btnSave.setEnabled(false);
             btnUpdate.setEnabled(true);
         
-            product.setName(txtProdName.getText());
+            String priceText= txtPrice.getText();
+        double price= 0;
+        try{
+             price= Double.parseDouble(priceText);
+             
+        }
+        catch(NumberFormatException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Enter valid price");
+            return;
+        }
+        
+        String availabilityText= txtAvailablity.getText();
+        int availablity = 0;
+        try {
+            availablity= Integer.parseInt(availabilityText);
+            
+        }
+        catch(NumberFormatException e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Enter valid availablity");
+        }
+        //String name;
+        //String name1="";
+        try{
+            
+            
+            if(prodDir.getProductDirectory().size()>=0){
+                for(Product p: prodDir.getProductDirectory()){
+                    if(p.getName().equals(txtProdName.getText())){
+                        JOptionPane.showMessageDialog(null, "Name already exists");
+                        return;
+                    }
+                }
+            }
+        }  
+        catch(NullPointerException e){
+            e.printStackTrace();
+            
+        }
+            Double.parseDouble(priceText);
+            Integer.parseInt(availabilityText);
+            Product prod = prodDir.addProduct();
+            prod.setName(txtProdName.getText());
+            prod.setAvailNum(availablity);
+            prod.setPrice(price);
+            prod.setDescription(txtDesc.getText());
+            /*product.setName(txtProdName.getText());
             product.setPrice(Double.parseDouble(txtPrice.getText()));
             product.setAvailNum(Integer.parseInt(txtAvailablity.getText()));
-            product.setDescription(txtDesc.getText());
+            product.setDescription(txtDesc.getText());*/
         
             JOptionPane.showMessageDialog(null, "Account updated successfully");        
         
