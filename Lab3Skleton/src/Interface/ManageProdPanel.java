@@ -43,6 +43,7 @@ public class ManageProdPanel extends javax.swing.JPanel {
         dtm.setRowCount(0);
         
         for(Product a : prodDir.getProductDirectory()){
+            
             Object[] row = new Object[dtm.getColumnCount()];
             row[0]=a;
             row[1]=a.getAvailNum();
