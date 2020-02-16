@@ -35,12 +35,18 @@ public class Customer extends User implements Comparable<Customer>{
 
    @Override
     public boolean verify(String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(password.equals(getPassword()))
+            return true;
+        return false;
     }
 
     @Override
     public int compareTo(Customer t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return t.getUserName().compareTo(this.getUserName());
+    }
+
+    public Object getCreatedOn() {
+        return createdOn;
     }
     
 }

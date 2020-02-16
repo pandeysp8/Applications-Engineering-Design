@@ -10,6 +10,7 @@ import Business.Users.Customer;
 import Business.Users.Supplier;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -190,14 +191,14 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         }
         if(radioCustomer.isSelected()){
             admin.getCustDir().getCustomerList().add(new Customer(password, user));
-            JOptionPane.showMessageDialog(null, "Supplier created successfully");
-            
+            JOptionPane.showMessageDialog(null, "Customer created successfully");
+            toMainScreen();
             
         }
         if(radioSupplier.isSelected()){
              admin.getSuppDir().getSupplierList().add(new Supplier(password, user));
-            JOptionPane.showMessageDialog(null, "Customer created successfully");
-            
+            JOptionPane.showMessageDialog(null, "Supplier created successfully");
+            toMainScreen();
         }
         //Supplier s= new Supplier(password,user);
        
@@ -206,6 +207,21 @@ public class AdminCreateScreen extends javax.swing.JPanel {
         
     }//GEN-LAST:event_btnCreateActionPerformed
 
+    private void toMainScreen()
+    {
+        CardLayout layout= (CardLayout) this.panelRight.getLayout();
+        this.panelRight.remove(this);
+        Component[] comps = this.panelRight.getComponents();
+        for ( Component comp : comps)
+        {
+            if (comp instanceof AdminMainScreen)
+            {
+                AdminMainScreen panel = (AdminMainScreen) comp;
+                panel.populate();
+            }
+        }
+        layout.previous(panelRight);
+    }
     private void radioCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioCustomerActionPerformed
         // TODO add your handling code here:
         
@@ -215,7 +231,7 @@ public class AdminCreateScreen extends javax.swing.JPanel {
 
         CardLayout layout = (CardLayout)panelRight.getLayout();
         panelRight.remove(this);
-        panelRight.add(new AdminMainScreen(panelRight, (Admin)admin));
+        //panelRight.add(new AdminMainScreen(panelRight, (Admin)admin));
         layout.previous(panelRight);
         
         

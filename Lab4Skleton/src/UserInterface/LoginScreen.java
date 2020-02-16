@@ -26,10 +26,12 @@ public class LoginScreen extends javax.swing.JPanel {
      */
     List<User> list;
     JPanel panelRight;
-    public LoginScreen(JPanel panelRight, List<User> list) {
+    private String role;
+    public LoginScreen(String role,JPanel panelRight, List<User> list) {
         initComponents();
         this.list = list;
         this.panelRight = panelRight;
+        this.role= role;
         initialize();
     }
 
@@ -94,9 +96,38 @@ public class LoginScreen extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
+        User u = (User)comboUser.getSelectedItem();
         list.get(0).getRole();
-        Supplier s;
+        //Supplier s;
         
+        if(role.equalsIgnoreCase("Supplier"))
+        {
+            Supplier s = (Supplier) u;
+            if(s.verify(txtPword.getText()))
+            { //grantAccessTo(u);
+            SuccessScreen ss = new SuccessScreen(u);      
+            CardLayout layout = (CardLayout)panelRight.getLayout();
+            panelRight.add(ss);
+            layout.next(panelRight);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Please enter a valid password\nEnusername ");
+            
+        }
+        else if(role.equalsIgnoreCase("Customer"))
+        {
+          Customer c = (Customer) u;
+          
+            if(c.verify(txtPword.getText()))
+            {
+                SuccessScreen ss1 = new SuccessScreen(u);      
+            CardLayout layout = (CardLayout)panelRight.getLayout();
+            panelRight.add(ss1);
+            layout.next(panelRight);
+            }
+            else
+                JOptionPane.showMessageDialog(this, "Please enter a valid password\nEnusername ");
+        }
         
     }//GEN-LAST:event_btnSubmitActionPerformed
 
@@ -107,12 +138,26 @@ public class LoginScreen extends javax.swing.JPanel {
         txtTitle.setText("****** Login Screen");
         
         comboUser.removeAllItems();
-        
-        
-        for(User u: list){
-           comboUser.addItem(list);
-            
+        if(role.equalsIgnoreCase("Supplier"))
+        {
+            txtTitle.setText("Supplier Login Screen");
+            comboUser.removeAllItems();
+            for (User u:list)
+        {
+            comboUser.addItem(u);
         }
+        }
+        else if(role.equalsIgnoreCase("Customer"))
+        {
+            txtTitle.setText("Customer Login Screen");
+            comboUser.removeAllItems();
+            for (User u:list)
+        {
+            comboUser.addItem(u);
+        }  
+        }
+       
+        
         //only customer or suppliers should be listed based on the selection
     }
     
