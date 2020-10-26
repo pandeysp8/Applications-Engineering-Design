@@ -1,1 +1,1 @@
-# Applications Engineering Design Coursework
+# Applications Engineering Design Assignments and Project
